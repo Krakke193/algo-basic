@@ -3,6 +3,10 @@ package com.example.sortings;
 import java.util.Arrays;
 import com.example.Utils;
 
+/**
+ * Heap sort implementation
+ * @see <a href="https://www.geeksforgeeks.org/heap-sort/">reference</a>
+ */
 @SuppressWarnings("WeakerAccess")
 public class HeapSort implements Utils {
     private final int[] array;
