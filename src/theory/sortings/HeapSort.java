@@ -1,7 +1,7 @@
-package com.example.sortings;
+package theory.sortings;
 
 import java.util.Arrays;
-import com.example.Utils;
+import theory.Utils;
 
 /**
  * Heap sort implementation

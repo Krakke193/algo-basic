@@ -1,4 +1,4 @@
-package com.example;
+package theory;
 
 public interface Utils {
     default void swap(int[] array, int i, int j) {
