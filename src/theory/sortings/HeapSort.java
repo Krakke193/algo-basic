@@ -1,7 +1,5 @@
 package theory.sortings;
 
-import java.util.Arrays;
-
 /**
  * Heap sort implementation
  * @see <a href="https://www.geeksforgeeks.org/heap-sort/">reference</a>
@@ -64,16 +62,12 @@ public class HeapSort extends Sorting {
         }
     }
 
-    public int[] toArray() {
-        return array;
-    }
-
     public static void main(String... args) {
         int array[] = {3, 5, 1, 9, -10, 8, 7};
 
         var hs = new HeapSort(array);
         hs.sort();
 
-        System.out.println(Arrays.toString(hs.toArray()));
+        System.out.println(hs);
     }
 }
