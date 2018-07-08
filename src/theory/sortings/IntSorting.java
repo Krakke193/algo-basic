@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.Random;
 
 @SuppressWarnings("WeakerAccess")
-public abstract class Sorting {
+public abstract class IntSorting {
     protected int[] array;
 
-    public Sorting(int[] array) {
+    public IntSorting(int[] array) {
         this.array = array;
     }
 

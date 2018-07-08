@@ -2,10 +2,11 @@ package theory.sortings;
 
 /**
  * Heap sort implementation
+ *
  * @see <a href="https://www.geeksforgeeks.org/heap-sort/">reference</a>
  */
 @SuppressWarnings("WeakerAccess")
-public class HeapSort extends Sorting {
+public class HeapSort extends IntSorting {
     private final int length;
 
     public HeapSort(int[] initialArray) {
@@ -39,8 +40,8 @@ public class HeapSort extends Sorting {
      * "partial heap", so that the lowest element can find it's way
      * down to the leaf of the tree.
      *
-     * @param n     overall length of the heap
-     * @param head  heap of the heap that will be heapifyied
+     * @param n    overall length of the heap
+     * @param head heap of the heap that will be heapifyied
      */
     private void heapify(int n, int head) {
         int largest = head;

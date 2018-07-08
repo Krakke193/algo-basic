@@ -6,7 +6,7 @@ package theory.sortings;
  * https://youtu.be/aQiWF4E8flQ
  */
 @SuppressWarnings("WeakerAccess")
-public class QuickSort extends Sorting {
+public class QuickSort extends IntSorting {
 
     public QuickSort(int[] array) {
         super(array);
