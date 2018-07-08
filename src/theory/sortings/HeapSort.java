@@ -1,19 +1,17 @@
 package theory.sortings;
 
 import java.util.Arrays;
-import theory.Utils;
 
 /**
  * Heap sort implementation
  * @see <a href="https://www.geeksforgeeks.org/heap-sort/">reference</a>
  */
 @SuppressWarnings("WeakerAccess")
-public class HeapSort implements Utils {
-    private final int[] array;
+public class HeapSort extends Sorting {
     private final int length;
 
     public HeapSort(int[] initialArray) {
-        array = initialArray;
+        super(initialArray);
         length = array.length;
     }
 
@@ -22,6 +20,7 @@ public class HeapSort implements Utils {
      * tail of an array, exclude it from the heap and heapify what
      * left.
      */
+    @Override
     public void sort() {
         for (int i = length / 2 - 1; i >= 0; --i) {
             heapify(length, i);
@@ -29,7 +28,7 @@ public class HeapSort implements Utils {
 
         for (int i = length - 1; i > 0; --i) {
             // swap first and last
-            swap(array, 0, i);
+            swap(0, i);
 
             // heapify
             heapify(i, 0);
@@ -59,7 +58,7 @@ public class HeapSort implements Utils {
         }
 
         if (largest != head) {
-            swap(array, largest, head);
+            swap(largest, head);
 
             heapify(n, largest);
         }
