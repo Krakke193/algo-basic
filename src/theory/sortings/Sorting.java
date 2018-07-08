@@ -23,6 +23,8 @@ public abstract class Sorting {
     }
 
     protected void swap(int i, int j) {
+        if (i == j) return; // no need to swap the same items
+
         int temp = array[i];
         array[i] = array[j];
         array[j] = temp;
