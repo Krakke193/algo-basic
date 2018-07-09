@@ -29,13 +29,26 @@ public class Task1 {
     }
 
     static String solution(int[] array, int dollars) {
+        // key is a value, value is an index
+        List<List<Integer>> tuples = new ArrayList<>();
+
+        // prepare the data
         for (int i = 0; i < array.length; i++) {
-            for (int j = array.length - 1; j > i; j--) {
-                if (array[i] + array[j] == dollars) {
-                    return Integer.toString(Math.min(i, j) + 1) + " " + Integer.toString(Math.max(i, j) + 1);
-                }
-            }
+            tuples.add(new ArrayList<>(Arrays.asList(array[i], i)));
         }
+
+        // sort the tuples by value
+        tuples.sort((o1, o2) -> {
+            if (o1.get(0) > o2.get(0)) return 1;
+            if (o1.get(0).equals(o2.get(0))) return 0;
+            return -1;
+        });
+
+        /* TODO: Implement binary search:
+            1. for (min -> dollars) // it is always a sum of two ints, cut off all that can't take place in sum
+            2. binsearch between cycles' counter and dollars (max)
+            3. when found, take index from tuple
+         */
 
         return "";
     }
