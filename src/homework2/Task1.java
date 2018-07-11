@@ -55,8 +55,8 @@ public class Task1 {
             j = binSearch(tuples, dollars, tuples.get(i).get(0), i, tuples.size() - 1);
         }
 
-        int loIdx = tuples.get(i).get(1);
-        int hiIdx = tuples.get(j).get(1);
+        int loIdx = Math.min(tuples.get(i).get(1), tuples.get(j).get(1));
+        int hiIdx = Math.max(tuples.get(i).get(1), tuples.get(j).get(1));
 
         return ++loIdx + " " + ++hiIdx;
     }
