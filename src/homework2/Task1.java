@@ -1,9 +1,8 @@
 package homework2;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import theory.Utils;
+
+import java.util.*;
 
 @SuppressWarnings("WeakerAccess")
 public class Task1 {
@@ -45,11 +44,40 @@ public class Task1 {
         });
 
         /* TODO: Implement binary search:
-            1. for (min -> dollars) // it is always a sum of two ints, cut off all that can't take place in sum
+            1. for (min -> max)
             2. binsearch between cycles' counter and dollars (max)
             3. when found, take index from tuple
          */
+        int i = -1;
+        int j = -1;
+        while (j == -1) {
+            i++;
+            j = binSearch(tuples, dollars, tuples.get(i).get(0), i, tuples.size() - 1);
+        }
 
-        return "";
+        int loIdx = tuples.get(i).get(1);
+        int hiIdx = tuples.get(j).get(1);
+
+        return ++loIdx + " " + ++hiIdx;
+    }
+
+    public static int binSearch(List<List<Integer>> tuples, int sum, int firstSumPart, int lo, int hi) {
+        if (lo < hi) {
+            int mid = (lo / 2) + (hi / 2);
+
+            if (tuples.get(mid).get(0) + firstSumPart > sum) {
+                // left
+                return binSearch(tuples, sum, firstSumPart, lo, mid - 1);
+            }
+            if (tuples.get(mid).get(0) + firstSumPart < sum) {
+                return binSearch(tuples, sum, firstSumPart, mid + 1, hi);
+            }
+
+            return mid;
+        }
+        if (tuples.get(lo).get(0) + firstSumPart == sum) {
+            return lo;
+        }
+        return -1;
     }
 }
