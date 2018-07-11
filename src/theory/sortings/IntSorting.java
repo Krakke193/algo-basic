@@ -1,10 +1,12 @@
 package theory.sortings;
 
+import theory.AbsAlgorithm;
+
 import java.util.Arrays;
 import java.util.Random;
 
 @SuppressWarnings("WeakerAccess")
-public abstract class IntSorting {
+public abstract class IntSorting extends AbsAlgorithm {
     protected int[] array;
 
     public IntSorting(int[] array) {
