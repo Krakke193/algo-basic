@@ -9,19 +9,17 @@ public class Task3 {
 
     public static void main(String... args) {
         Scanner scan = new Scanner(System.in);
-        List<String> results = new ArrayList<>();
+        List<String> data = new ArrayList<>();
 
         int iterations = Integer.parseInt(scan.nextLine());
 
         while (iterations > 0) {
             int i = Integer.parseInt(scan.nextLine());
-
-            results.add(Integer.toString(i));
-
+            data.add(Integer.toString(i));
             iterations--;
         }
 
-        results.stream()
+        data.stream()
                 .map(Task3::solution)
                 .reduce((acc, curr) -> acc + " " + curr)
                 .ifPresent(System.out::println);
@@ -42,16 +40,16 @@ public class Task3 {
         return "1";
     }
 
-    public static int binSearch(int searchElem, int lo, int hi) {
+    public static int binSearch(long searchElem, int lo, int hi) {
         if (lo < hi) {
             int mid = (lo / 2) + (hi / 2);
-            int midElem = sequenceFunc(mid);
+            long midElem = sequenceFunc(mid);
 
-            if (midElem < searchElem) {
+            if (midElem > searchElem) {
                 // left
                 return binSearch(searchElem, lo, mid - 1);
             }
-            if (midElem > searchElem) {
+            if (midElem < searchElem) {
                 return binSearch(searchElem, mid + 1, hi);
             }
 
@@ -63,7 +61,7 @@ public class Task3 {
         return -1;
     }
 
-    public static int sequenceFunc(int x) {
+    public static long sequenceFunc(long x) {
         return ((x * (x+1)) / 2) + 1;
     }
 }
