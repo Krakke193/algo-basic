@@ -1,20 +1,22 @@
 package homework2;
 
+import java.util.Scanner;
+
 @SuppressWarnings("WeakerAccess")
 public class Task4 {
 
     public static void main(String... args) {
-        int price = 2000;
-        int monthly = 510;
-        int payments = 4;
+        Scanner scan = new Scanner(System.in);
+        String[] raw = scan.nextLine().split(" ");
 
-        double correctInterest = 9.562054624583681;
-        double interest = 9.562054624583681 / 12;
+        double price = Double.parseDouble(raw[0]);
+        double monthly = Double.parseDouble(raw[1]);
+        int payments = Integer.parseInt(raw[2]);
 
-        solution(price, monthly, payments, interest);
+        solution(price, monthly, payments);
     }
 
-    static void solution(int price, int monthPayment, int payments, double interest) {
+    static void solution(double price, double monthPayment, int payments) {
         double l = 0;
         double r = 100;
 
@@ -27,20 +29,16 @@ public class Task4 {
             }
         }
 
-        System.out.println("l is " + l);
-        System.out.println("r is " + r);
+        System.out.println(l * 12);
     }
 
-    static double processPayments(int price, int monthPayment, int payments, double interest) {
+    static double processPayments(double price, double monthPayment, int payments, double interest) {
         double balance = price;
 
         for (int i = payments; i > 0; i--) {
             balance = balance + getPercent(balance, interest) - monthPayment;
-            System.out.println(balance);
         }
 
-        System.out.println(" * * * * ");
-        System.out.println("Balance after: " + balance);
         return balance;
     }
 
