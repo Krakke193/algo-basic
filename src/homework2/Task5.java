@@ -42,14 +42,12 @@ public class Task5 {
 
         int i = 0, j = 0;
         int k = lo;
-        int rightInsertions = 0;
         while (i < leftArray.length && j < rightArray.length) {
             if (leftArray[i] <= rightArray[j]) {
                 swapCounter += j;
                 arr[k] = leftArray[i];
                 i++;
             } else {
-                rightInsertions++;
                 arr[k] = rightArray[j];
                 j++;
             }
@@ -57,7 +55,7 @@ public class Task5 {
             k++;
         }
 
-        swapCounter += (leftArray.length - i) * rightInsertions;
+        swapCounter += (leftArray.length - i) * (long) j;
 
         while (i < leftArray.length) {
             arr[k] = leftArray[i];
