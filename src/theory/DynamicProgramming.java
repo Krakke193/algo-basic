@@ -9,6 +9,11 @@ public class DynamicProgramming {
 
         assert Grasshopper.canJumpKStumps(4, 4) == 8;
         assert Grasshopper.canJumpKStumps(3, 1) == 1;
+
+        boolean[] frogs = {false, true, true, false};
+        assert Grasshopper.canJumpKStumpsWithFrogs(3, 2, frogs) == 0;
+        boolean[] frogs2 = {false, true, false, false};
+        assert Grasshopper.canJumpKStumpsWithFrogs(3, 2, frogs2) == 1;
     }
 
     private static class Grasshopper {
@@ -71,6 +76,39 @@ public class DynamicProgramming {
             for (int i = 1; i <= n; ++i) {
                 for (int j = 1; j <= Math.min(i, k); ++j) {
                     a[i] += a[i - j];
+                }
+            }
+
+            return a[n];
+        }
+
+        /**
+         * Same as previous, but on some stamps frogs are sitting, and one cannot jump on them.
+         * So there is no way that these stamps can be included in answer, therefore we set 0 there.
+         *
+         * @param n    stump indexes
+         * @param k    grasshopper's jump distance
+         * @param frog array representing frogs on stamps
+         * @return ways to reach n-th stump and not get eaten
+         */
+        static int canJumpKStumpsWithFrogs(int n, int k, boolean[] frog) {
+            if (n < 0) {
+                return 0;
+            }
+            if (n == 0 || n == 1) {
+                return 1;
+            }
+
+            int[] a = new int[n + 1];
+            a[0] = 1;
+
+            for (int i = 1; i <= n; ++i) {
+                if (frog[i]) {
+                    a[i] = 0;
+                } else {
+                    for (int j = 1; j <= Math.min(i, k); ++j) {
+                        a[i] += a[i - j];
+                    }
                 }
             }
 
