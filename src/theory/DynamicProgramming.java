@@ -14,6 +14,9 @@ public class DynamicProgramming {
         assert Grasshopper.canJumpKStumpsWithFrogs(3, 2, frogs) == 0;
         boolean[] frogs2 = {false, true, false, false};
         assert Grasshopper.canJumpKStumpsWithFrogs(3, 2, frogs2) == 1;
+
+        int[] cost = {0, -2, -1, 3, -5, 2};
+        assert Grasshopper.canJumpKStumpsAndCollectMaxMoney(5, 2, cost) == 4;
     }
 
     private static class Grasshopper {
@@ -108,6 +111,32 @@ public class DynamicProgramming {
                 } else {
                     for (int j = 1; j <= Math.min(i, k); ++j) {
                         a[i] += a[i - j];
+                    }
+                }
+            }
+
+            return a[n];
+        }
+
+        static int canJumpKStumpsAndCollectMaxMoney(int n, int k, int[] cost) {
+            if (n < 0) {
+                return 0;
+            }
+            if (n == 0 || n == 1) {
+                return 1;
+            }
+
+            int[] a = new int[n + 1];
+            a[0] = 0;
+
+            for (int i = 1; i <= n; ++i) {
+                // lets assume that optimal way to reach this stamp is from previous
+                // if we are wrong -- we will fix them during the loop next
+                a[i] = a[i - 1] + cost[i];
+                for (int j = 1; j <= Math.min(i, k); ++j) {
+                    // if there are more optimal way let's store it
+                    if (a[i] < a[i - j] + cost[i]) {
+                        a[i] = a[i - j] + cost[i];
                     }
                 }
             }
