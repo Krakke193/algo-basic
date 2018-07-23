@@ -1,7 +1,9 @@
 package theory;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class DynamicProgramming {
 
+    @SuppressWarnings("AssertWithSideEffects")
     public static void main(String... args) {
         assert Grasshopper.canJumpTwoStumps(2) == 2;
         assert Grasshopper.canJumpTwoStumps(3) == 3;
@@ -10,13 +12,14 @@ public class DynamicProgramming {
         assert Grasshopper.canJumpKStumps(4, 4) == 8;
         assert Grasshopper.canJumpKStumps(3, 1) == 1;
 
-        boolean[] frogs = {false, true, true, false};
-        assert Grasshopper.canJumpKStumpsWithFrogs(3, 2, frogs) == 0;
-        boolean[] frogs2 = {false, true, false, false};
-        assert Grasshopper.canJumpKStumpsWithFrogs(3, 2, frogs2) == 1;
+        assert Grasshopper.canJumpKStumpsWithFrogs(3, 2, new boolean[]{false, true, true, false}) == 0;
+        assert Grasshopper.canJumpKStumpsWithFrogs(3, 2, new boolean[]{false, true, false, false}) == 1;
 
-        int[] cost = {0, -2, -1, 3, -5, 2};
-        assert Grasshopper.canJumpKStumpsAndCollectMaxMoney(5, 2, cost) == 4;
+        assert Grasshopper.canJumpKStumpsAndCollectMaxMoney(5, 2, new int[]{0, -2, -1, 3, -5, 2}) == 4;
+
+        assert backpack(6, new int[]{8, 5, 5}, new int[]{4, 3, 3}) == 10;
+        assert backpack(50, new int[]{60, 100, 120}, new int[]{10, 20, 30}) == 220;
+        assert backpack(7, new int[]{1, 4, 5, 7}, new int[]{1, 3, 4, 5}) == 9;
     }
 
     private static class Grasshopper {
@@ -143,5 +146,40 @@ public class DynamicProgramming {
 
             return a[n];
         }
+    }
+
+    /**
+     * This is bottom-up DP approach to solve the task. MANY thanks to this guy:
+     * https://www.youtube.com/watch?v=8LusJS5-AGo
+     *
+     * @param capacity capacity of backpack
+     * @param values   array of values
+     * @param weights  array of weights
+     * @return maximum value of backpack that can be picked
+     */
+    static int backpack(int capacity, int[] values, int[] weights) {
+        // we will move through cache "with backward shift" by one element.
+        int[][] total = new int[values.length][capacity + 1];
+
+        for (int l = 1; l < values.length; l++) {
+            for (int w = 1; w <= capacity; w++) {
+
+                // if current item cannot be placed into backpack due to overweight
+                if (w < weights[l]) {
+                    // skip current
+                    total[l][w] = total[l - 1][w];
+                }
+
+                // if can -- choose max between taking it and not taking it
+                else {
+                    total[l][w] = Math.max(
+                            total[l - 1][w - weights[l]] + values[l],
+                            total[l - 1][w]
+                    );
+                }
+            }
+        }
+
+        return total[values.length - 1][capacity];
     }
 }
