@@ -20,6 +20,11 @@ public class DynamicProgramming {
         assert backpack(6, new int[]{8, 5, 5}, new int[]{4, 3, 3}) == 10;
         assert backpack(50, new int[]{60, 100, 120}, new int[]{10, 20, 30}) == 220;
         assert backpack(7, new int[]{1, 4, 5, 7}, new int[]{1, 3, 4, 5}) == 9;
+
+        assert binaryBlocks(2) == 2;
+        assert binaryBlocks(3) == 3;
+        assert binaryBlocks(4) == 5;
+        assert binaryBlocks(5) == 8;
     }
 
     private static class Grasshopper {
@@ -181,5 +186,37 @@ public class DynamicProgramming {
         }
 
         return total[values.length - 1][capacity];
+    }
+
+    /**
+     * It is needed to find out how many combinations of blocks can be made
+     * For example:
+     * 0 1 0 0 1 1 0 0
+     * <p>
+     * However there is one rule: one may not put more than two similar blocks in line
+     * correct: 0 1 1 0 0 1 1
+     * wrong:   0 1 1 1 0 0 0
+     *
+     * @param length length of blocks
+     * @return number of combinations that can be made in the given length
+     */
+    static int binaryBlocks(int length) {
+        // first index – count of blocks
+        // second index – last block ("0" or "1")
+        int[][] total = new int[length][2];
+
+        // base cases
+        total[0][0] = 1; // one element, "0" last
+        total[1][0] = 2; // two elements, "0" last (so first element either "0", either "1")
+        total[0][1] = 1;
+        total[1][1] = 2;
+
+        for (int i = 2; i < length; i++) {
+            for (int j = 0; j < 2; j++) {
+                total[i][j] = total[i - 1][1 - j] + total[i - 2][1 - j];
+            }
+        }
+
+        return total[length - 1][0];
     }
 }
