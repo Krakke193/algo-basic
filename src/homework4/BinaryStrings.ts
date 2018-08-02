@@ -9,14 +9,14 @@ function processData(input: string) {
 }
 
 function countLines(lines: Array<string>, zerosLeft: number, onesLeft: number, counter: number): number {
-  if (lines.length == 0 || zerosLeft == 0 || onesLeft == 0) {
+  if (lines.length == 0 || (zerosLeft == 0 && onesLeft == 0)) {
     return counter;
   }
 
   let copy = lines.slice();
 
   const line = copy.splice(0, 1);
-  const [zeros, ones] = countNumbers(line[0]);
+  const [zeros, ones] = countNumbers(line[0].replace(/\s/g, ''));
 
   let picked = 0;
   let notPicked = 0;
@@ -46,8 +46,8 @@ function countNumbers(line: string): [number, number] {
   return [zeros, ones];
 }
 
-const data = `3 2 4
+const data = `3 3 1
+1
 00
-110
-101`;
+100`;
 processData(data);
