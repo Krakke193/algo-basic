@@ -103,3 +103,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+*.map
+src/homework4/*.js
